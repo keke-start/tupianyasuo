@@ -14,19 +14,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let originalFile = null;
 
-    // 修改文件选择处理
-    uploadButton.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        fileInput.click();
-    });
-
-    // 整个上传区域的点击事件
-    dropZone.addEventListener('click', function(e) {
-        if (e.target === dropZone || e.target.closest('.upload-content')) {
+    // 简化文件选择处理
+    function initFileSelection() {
+        // 上传按钮点击事件
+        uploadButton.onclick = function() {
             fileInput.click();
-        }
-    });
+        };
+
+        // 上传区域点击事件
+        dropZone.onclick = function(e) {
+            // 防止重复触发
+            if (e.target !== uploadButton && !uploadButton.contains(e.target)) {
+                fileInput.click();
+            }
+        };
+    }
+
+    // 初始化文件选择
+    initFileSelection();
 
     // 文件选择事件
     fileInput.addEventListener('change', handleFileSelect);
