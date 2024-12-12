@@ -14,6 +14,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let originalFile = null;
 
+    // 处理移动端文件选择
+    uploadButton.addEventListener('touchend', function(e) {
+        e.preventDefault();
+        fileInput.click();
+    });
+
+    // 处理点击事件
+    uploadButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        fileInput.click();
+    });
+
+    // 阻止冒泡
+    fileInput.addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+
     // 文件选择事件
     fileInput.addEventListener('change', handleFileSelect);
 

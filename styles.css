@@ -55,6 +55,8 @@ header p {
     transition: all 0.3s ease;
     cursor: pointer;
     margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
 }
 
 .upload-area:hover {
@@ -86,6 +88,8 @@ header p {
     box-shadow: 0 2px 8px rgba(0, 122, 255, 0.3);
     text-align: center;
     -webkit-tap-highlight-color: transparent;
+    position: relative;
+    z-index: 2;
 }
 
 .upload-button:hover {
