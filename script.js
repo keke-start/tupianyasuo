@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // 处理文件
     function handleFile(file) {
         if (!file.type.match('image.*')) {
-            alert('请选择���片文件！');
+            alert('请选择图片文件！');
             return;
         }
 
