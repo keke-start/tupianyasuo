@@ -74,6 +74,7 @@ header p {
 }
 
 .upload-button {
+    display: inline-block;
     background: var(--primary-color);
     color: white;
     border: none;
@@ -83,6 +84,8 @@ header p {
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 2px 8px rgba(0, 122, 255, 0.3);
+    text-align: center;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .upload-button:hover {
