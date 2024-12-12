@@ -116,6 +116,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         const link = document.createElement('a');
                         link.href = URL.createObjectURL(blob);
                         link.download = 'compressed_' + originalFile.name;
+                        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                            link.target = '_blank';
+                            link.rel = 'noopener';
+                        }
                         link.click();
                     };
                 }, file.type, quality);
