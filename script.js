@@ -14,8 +14,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let originalFile = null;
 
-    // 上传按钮点击事件
-    uploadButton.addEventListener('click', () => fileInput.click());
+    // 修改文件选择处理
+    uploadButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        fileInput.click();
+    });
+
+    // 整个上传区域的点击事件
+    dropZone.addEventListener('click', function(e) {
+        if (e.target === dropZone || e.target.closest('.upload-content')) {
+            fileInput.click();
+        }
+    });
 
     // 文件选择事件
     fileInput.addEventListener('change', handleFileSelect);
@@ -62,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // 处理文件
     function handleFile(file) {
         if (!file.type.match('image.*')) {
-            alert('请选择图片文件！');
+            alert('请选择���片文件！');
             return;
         }
 
@@ -150,8 +161,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, { passive: false });
 
-    // 优化移动端文件选择
-    if ('capture' in HTMLInputElement.prototype) {
-        fileInput.setAttribute('capture', 'environment');
-    }
+    // 移除 capture 属性，允许用户选择图片来源
+    fileInput.removeAttribute('capture');
 }); 
