@@ -23,7 +23,7 @@ body {
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 1rem;
 }
 
 /* 头部样式 */
@@ -188,4 +188,54 @@ input[type="range"]::-webkit-slider-thumb {
 .download-button:hover {
     background: #0056b3;
     transform: translateY(-1px);
+} 
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 1.8rem;
+    }
+
+    .upload-area {
+        padding: 1.5rem 1rem;
+    }
+
+    .preview-section {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .image-container {
+        height: 200px;
+    }
+
+    .quality-control {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.5rem;
+    }
+
+    .quality-control label {
+        text-align: center;
+    }
+
+    .upload-button,
+    .download-button {
+        width: 100%;
+        padding: 0.8rem;
+        font-size: 1rem;
+    }
+}
+
+/* 修复移动端触摸操作 */
+@media (hover: none) {
+    .upload-area:hover {
+        border-color: #E5E5E5;
+        background: white;
+    }
+
+    .upload-area.dragover {
+        border-color: var(--primary-color);
+        background: #F0F7FF;
+    }
 } 

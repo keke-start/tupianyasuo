@@ -85,12 +85,27 @@ document.addEventListener('DOMContentLoaded', function() {
         reader.onload = function(e) {
             const img = new Image();
             img.onload = function() {
+                // 限制最大尺寸，避免移动端内存问题
+                const maxSize = 1920;
+                let width = img.width;
+                let height = img.height;
+                
+                if (width > maxSize || height > maxSize) {
+                    if (width > height) {
+                        height = Math.round((height * maxSize) / width);
+                        width = maxSize;
+                    } else {
+                        width = Math.round((width * maxSize) / height);
+                        height = maxSize;
+                    }
+                }
+
                 const canvas = document.createElement('canvas');
-                canvas.width = img.width;
-                canvas.height = img.height;
+                canvas.width = width;
+                canvas.height = height;
                 
                 const ctx = canvas.getContext('2d');
-                ctx.drawImage(img, 0, 0);
+                ctx.drawImage(img, 0, 0, width, height);
                 
                 canvas.toBlob(function(blob) {
                     compressedImage.src = URL.createObjectURL(blob);
@@ -117,5 +132,22 @@ document.addEventListener('DOMContentLoaded', function() {
         const sizes = ['Bytes', 'KB', 'MB', 'GB'];
         const i = Math.floor(Math.log(bytes) / Math.log(k));
         return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+
+    // 优化移动端拖放体验
+    dropZone.addEventListener('touchstart', function(e) {
+        e.preventDefault();
+    });
+
+    // 防止移动端缩放
+    document.addEventListener('touchmove', function(e) {
+        if (e.scale !== 1) {
+            e.preventDefault();
+        }
+    }, { passive: false });
+
+    // 优化移动端文件选择
+    if ('capture' in HTMLInputElement.prototype) {
+        fileInput.setAttribute('capture', 'environment');
     }
 }); 
